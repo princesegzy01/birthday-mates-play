@@ -15,6 +15,10 @@ public class AccountFinder extends Finder<Long,Account> {
 //        return query().eq("firstName", name).findOne();
 //    }
 //
+    public Account byId(Integer id) {
+        return query().where().eq("id", id).findOne();
+    }
+
     public Account byEmail(String email) {
         return query().where().eq("email", email).findOne();
     }

@@ -2,8 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 GET     /api/account/                           controllers.ApiAccountController.index()
-POST     /api/account/login                      controllers.ApiAccountController.login(request:Request)
-POST     /api/account/register                   controllers.ApiAccountController.Register(request:Request)
+POST     /api/account/login                     controllers.ApiAccountController.login(request:Request)
+POST     /api/account/register                  controllers.ApiAccountController.Register(request:Request)
+POST     /api/account/password/change           controllers.ApiAccountController.ChangePassword(request:Request)
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index

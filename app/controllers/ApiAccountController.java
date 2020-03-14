@@ -82,6 +82,7 @@ public class ApiAccountController extends Controller {
         account.put("email", email);
         account.put("dob", dob);
         account.put("displayName", displayName);
+        account.put("id", newAccount.id);
 
         return ok(account);
     }
@@ -99,7 +100,28 @@ public class ApiAccountController extends Controller {
     }
 
     // confirmAccount account controller
-    public Result changePassword(){
+    public Result ChangePassword(Http.Request request){
+
+        JsonNode json = request.body().asJson();
+        Integer id = Integer.parseInt(json.findPath("id").textValue());
+        String oldPassword = json.findPath("oldPassword").textValue();
+        String newPassword = json.findPath("newPassword").textValue();
+
+        Account account = Account.find.byId(id);
+        if(account != null){
+            if (!account.password.trim().equals(oldPassword.trim())) {
+                ObjectNode response = Json.newObject();
+                response.put("error", "Old password does not match");
+                return badRequest(response);
+            }
+            account.password = newPassword;
+            account.save();
+
+            ObjectNode response = Json.newObject();
+            response.put("status", "Password Successfully changed");
+            return ok(response);
+        }
+
 
         return ok("changePassword");
     }
