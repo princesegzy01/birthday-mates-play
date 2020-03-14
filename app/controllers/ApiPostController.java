@@ -12,7 +12,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Http;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class ApiPostController extends  Controller {
 
@@ -39,16 +42,55 @@ public class ApiPostController extends  Controller {
 
     public Result FecthAll(){
         List<Post> posts = Post.find.all();
-        return ok("return");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String postJson = "";
+        try
+        {
+            postJson = mapper.writeValueAsString(posts);
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error while converting Student object to Json");
+            ex.printStackTrace();
+        }
+        return ok(postJson);
     }
 
     public Result getPostById(Integer id){
-        Post posts = Post.find.byId(id);
-        return ok("return");
-    }
+        Post post = Post.find.byId(id);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String postJson = "";
+        try
+        {
+            postJson = mapper.writeValueAsString(post);
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error while converting Student object to Json");
+            ex.printStackTrace();
+        }
+        return ok(postJson);
+   }
 
     public Result getPostByUser(Integer id){
-        Post posts = Post.find.byId(id);
-        return ok("return");
+        List<Post> posts = Post.find.byUser(id);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String postJson = "";
+        try
+        {
+            postJson = mapper.writeValueAsString(posts);
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error while converting Student object to Json");
+            ex.printStackTrace();
+        }
+        return ok(postJson);
     }
 }
