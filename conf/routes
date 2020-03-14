@@ -9,6 +9,11 @@ POST     /api/account/password/change           controllers.ApiAccountController
 GET     /api/profile/:id                        controllers.ApiAccountController.GetProfile(id: Integer)
 POST     /api/profile/update                    controllers.ApiAccountController.UpdateProfile(request:Request)
 
+GET     /api/post/                              controllers.ApiPostController.FecthAll
+GET     /api/post/:id                           controllers.ApiPostController.getPostById(id: Integer)
+GET     /api/user/:id/posts                     controllers.ApiPostController.getPostByUser(id: Integer)
+
+POST    /api/post/add                          controllers.ApiPostController.addPost(request:Request)
 
 
 # An example controller showing a sample home page

@@ -14,8 +14,19 @@ create table account (
   constraint pk_account primary key (id)
 );
 
+create table post (
+  id                            bigserial not null,
+  user_id                       integer,
+  content                       varchar(255),
+  status                        integer,
+  timestamp                     varchar(255),
+  constraint pk_post primary key (id)
+);
+
 
 # --- !Downs
 
 drop table if exists account cascade;
+
+drop table if exists post cascade;
 
