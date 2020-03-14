@@ -126,6 +126,33 @@ public class ApiAccountController extends Controller {
         return ok("changePassword");
     }
 
+    public Result GetProfile(Integer id){
+
+
+        Account account = Account.find.byId(id);
+        if(account != null){
+
+            ObjectNode response = Json.newObject();
+            response.put("firstName", account.firstName);
+            response.put("lastName", account.lastName);
+            response.put("email", account.email);
+            response.put("dob", account.dob);
+            response.put("displayName", account.displayName);
+            response.put("id", account.id);
+
+            return ok(response);
+
+
+        }
+
+
+        return ok("id not found");
+    }
+
+    public Result UpdateProfile(Integer id){
+        return ok("changePassword");
+    }
+
 
 
 }

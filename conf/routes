@@ -6,6 +6,9 @@ POST     /api/account/login                     controllers.ApiAccountController
 POST     /api/account/register                  controllers.ApiAccountController.Register(request:Request)
 POST     /api/account/password/change           controllers.ApiAccountController.ChangePassword(request:Request)
 
+GET     /api/profile/:id                        controllers.ApiAccountController.GetProfile(id: Integer)
+
+
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
