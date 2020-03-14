@@ -26,11 +26,13 @@ public class ApiAccountController extends Controller {
         for ( Account account: accounts){
 //            JsonNode accountJson = Json.toJson(account);
 //            System.out.println(accountJson);
-            System.out.println(account.email);
+            System.out.println(account.id);
+            System.out.println("Email : " + account.email);
             account.delete();
         }
 
-        return ok("segun");
+//        System.out.println(accounts.size());
+        return ok("result length  : ");
     }
 
 
@@ -128,7 +130,7 @@ public class ApiAccountController extends Controller {
 
     public Result GetProfile(Integer id){
 
-
+        System.out.println((id));
         Account account = Account.find.byId(id);
         if(account != null){
 
@@ -149,8 +151,27 @@ public class ApiAccountController extends Controller {
         return ok("id not found");
     }
 
-    public Result UpdateProfile(Integer id){
-        return ok("changePassword");
+    public Result UpdateProfile(Http.Request request){
+//
+        JsonNode json = request.body().asJson();
+        Integer id = Integer.parseInt(json.findPath("id").textValue());
+
+        Account account = Account.find.byId(id);
+
+        if(account != null){
+
+            Account accountData = Json.fromJson(json, Account.class);
+
+            accountData.update();
+            System.out.println("Reach here");
+
+            ObjectNode response = Json.newObject();
+            response.put("status", "success");
+            response.put("msg", "Profile successfully updated");
+            return ok(response);
+
+        }
+        return ok("invalid user ID");
     }
 
 

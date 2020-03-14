@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table account (
-  id                            bigint auto_increment not null,
+  id                            bigserial not null,
   first_name                    varchar(255),
   last_name                     varchar(255),
   email                         varchar(255),
@@ -17,5 +17,5 @@ create table account (
 
 # --- !Downs
 
-drop table if exists account;
+drop table if exists account cascade;
 
