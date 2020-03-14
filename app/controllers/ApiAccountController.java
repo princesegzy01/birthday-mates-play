@@ -37,19 +37,22 @@ public class ApiAccountController extends Controller {
     // login controller
     public Result login(Http.Request request){
 
-
-
-
-        ObjectNode result = Json.newObject();
-        result.put("exampleField1", "foobar");
-        result.put("exampleField2", "Hello world!");
-        
         JsonNode json = request.body().asJson();
+        String email = json.findPath("email").textValue();
+        String password = json.findPath("password").textValue();
 
-        // System.out.println(result);
-        System.out.println(json);
+        Account accountExist = Account.find.byEmailPassword(email, password);
+        if(accountExist == null){
 
-        return ok(result);
+            ObjectNode response = Json.newObject();
+            response.put("error", "Account does not exist");
+            return notFound(response);
+        }
+
+
+        ObjectNode response = Json.newObject();
+        response.put("status", "Account successfully Logged In");
+        return ok(response);
     }
 
     // Registration controller

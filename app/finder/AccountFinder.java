@@ -19,6 +19,11 @@ public class AccountFinder extends Finder<Long,Account> {
         return query().where().eq("email", email).findOne();
     }
 
+    public Account byEmailPassword(String email, String password) {
+        return query().where().eq("email", email).eq("password", password).findOne();
+    }
+
+
 //    public List<Account> findNew() {
 //        return query().where()
 //                .eq("status", Customer.Status.NEW)
