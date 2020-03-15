@@ -62,8 +62,7 @@ public class ApiAccountController extends Controller {
 
         JsonNode json = request.body().asJson();
 
-        String firstName = json.findPath("firstName").textValue();
-        String lastName = json.findPath("lastName").textValue();
+        String userName = json.findPath("userName").textValue();
         String email = json.findPath("email").textValue();
         String dob = json.findPath("dob").textValue();
         String displayName = json.findPath("displayName").textValue();
@@ -72,15 +71,25 @@ public class ApiAccountController extends Controller {
         Account accountExist = Account.find.byEmail(email);
         if(accountExist != null){
             ObjectNode response = Json.newObject();
-            response.put("error", "Account with same email previously exist");
+            response.put("status", "Error");
+            response.put("msg", "Account with same email previously exist");
             return badRequest(response);
         }
-        Account newAccount = new Account(firstName, lastName, email, dob, displayName, password);
+
+        Account accountUserExist = Account.find.byUser(userName);
+        if(accountUserExist != null){
+            ObjectNode response = Json.newObject();
+            response.put("status", "Error");
+            response.put("msg", "Account with same username previously exist");
+            return badRequest(response);
+        }
+
+
+        Account newAccount = new Account(userName, email, dob, displayName, password);
         newAccount.save();
 
         ObjectNode account = Json.newObject();
-        account.put("firstName", firstName);
-        account.put("lastName", lastName);
+        account.put("userName", userName);
         account.put("email", email);
         account.put("dob", dob);
         account.put("displayName", displayName);
@@ -135,8 +144,7 @@ public class ApiAccountController extends Controller {
         if(account != null){
 
             ObjectNode response = Json.newObject();
-            response.put("firstName", account.firstName);
-            response.put("lastName", account.lastName);
+            response.put("userName", account.userName);
             response.put("email", account.email);
             response.put("dob", account.dob);
             response.put("displayName", account.displayName);

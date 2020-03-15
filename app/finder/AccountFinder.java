@@ -1,6 +1,7 @@
 package finder;
 import io.ebean.*;
 import models.Account;
+import models.Post;
 
 public class AccountFinder extends Finder<Long,Account> {
     public  AccountFinder(){
@@ -10,11 +11,7 @@ public class AccountFinder extends Finder<Long,Account> {
 //    public Account byFirstName(String name) {
 //        return query().eq("firstName", name).findOne();
 //    }
-//
-//    public Account byLastName(String name) {
-//        return query().eq("firstName", name).findOne();
-//    }
-//
+
     public Account byId(Integer id) {
         return query().where().eq("id", id).findOne();
     }
@@ -26,6 +23,11 @@ public class AccountFinder extends Finder<Long,Account> {
     public Account byEmailPassword(String email, String password) {
         return query().where().eq("email", email).eq("password", password).findOne();
     }
+
+    public Account byUser(String username) {
+        return query().where().eq("userName", username).findOne();
+    }
+
 
 
 //    public List<Account> findNew() {

@@ -17,16 +17,14 @@ public class Account extends Model  {
 
     @Constraints.MaxLength(255)
     @Constraints.MinLength(5)
-    public String firstName;
-    public String lastName;
+    public String userName;
     public String email;
     public String displayName;
     public String password;
     public String dob;
 
-    public Account(String firstName, String lastName, String email, String dob, String displayName, String password){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Account(String userName, String email, String dob, String displayName, String password){
+        this.userName = userName;
         this.email = email;
         this.dob = dob;
         this.displayName = displayName;
@@ -35,9 +33,4 @@ public class Account extends Model  {
 
     public static final AccountFinder find = new AccountFinder();
 
-
-//    public static Finder<Integer, Account> find  = new Finder<>(Account.class);
-//    public static Finder<Integer,Account> find = new Finder<>(Account.class);
-//    public static final Finder<Long, Account> find = new Finder<>(Account.class);
-//    public static final Find find = new Finder<>(Account.class);
 }
